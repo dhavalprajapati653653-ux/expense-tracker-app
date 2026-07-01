@@ -1,136 +1,134 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Expense Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Expense Tracker</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #1f1f2e;
-      color: white;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg,#0f172a,#1e1b4b);
+  color: white;
+}
 
-    .container {
-      max-width: 500px;
-      margin: auto;
-      padding: 15px;
-    }
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 15px;
+}
 
-    h1 {
-      text-align: center;
-    }
+.header {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-    .card {
-      background: #2c2c3e;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
+.card {
+  background: rgba(255,255,255,0.06);
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 12px;
+  backdrop-filter: blur(10px);
+}
 
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      border: none;
-    }
+.balance {
+  font-size: 28px;
+  text-align: center;
+}
 
-    button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      background: #4f46e5;
-      color: white;
-      cursor: pointer;
-    }
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
 
-    .income { color: lightgreen; }
-    .expense { color: red; }
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
 
-    ul {
-      list-style: none;
-      padding: 0;
-    }
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #6366f1;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    li {
-      background: #3a3a50;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-    .delete {
-      background: red;
-      border: none;
-      color: white;
-      padding: 5px 8px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #444;
+  font-size: 14px;
+}
 
-    img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-  </style>
+.delete {
+  background: red;
+  border: none;
+  color: white;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.income { color: lightgreen; }
+.expense { color: #ff6b6b; }
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
+<div class="header">💰 Pro Expense Tracker</div>
 
-  <h1>Expense Tracker</h1>
+<div class="card">
+  <div class="balance">₹<span id="balance">0</span></div>
 
-  <div class="card">
-    <h3>Balance: $<span id="balance">0</span></h3>
-    <h4 class="income">Income: $<span id="income">0</span></h4>
-    <h4 class="expense">Expense: $<span id="expense">0</span></h4>
+  <div class="row">
+    <div class="income">Income: ₹<span id="income">0</span></div>
+    <div class="expense">Expense: ₹<span id="expense">0</span></div>
   </div>
-
-  <div class="card">
-    <input type="text" id="text" placeholder="Enter description">
-
-    <select id="category">
-      <option>Petrol</option>
-      <option>Food</option>
-      <option>Rent</option>
-      <option>Other</option>
-    </select>
-
-    <input type="number" id="amount" placeholder="Enter amount">
-
-    <button onclick="addTransaction()">Add Transaction</button>
-  </div>
-
- <div class="card">
-  <h3>📊 Income vs Expense</h3>
-  <canvas id="chart"></canvas>
 </div>
 
 <div class="card">
-  <h3>📋 Transaction History</h3>
+  <input id="text" placeholder="Enter description">
+  <select id="category">
+    <option>Food</option>
+    <option>Petrol</option>
+    <option>Rent</option>
+    <option>Other</option>
+  </select>
+  <input id="amount" type="number" placeholder="Amount (+income / -expense)">
+  <button onclick="addTransaction()">Add Transaction</button>
+</div>
 
-  <table style="width:100%; color:white; text-align:left;">
+<div class="card">
+  <h3>📊 History</h3>
+  <table>
     <thead>
       <tr>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Amount</th>
-        <th>Action</th>
+        <th>Text</th>
+        <th>Cat</th>
+        <th>Amt</th>
+        <th>Del</th>
       </tr>
     </thead>
-
     <tbody id="list"></tbody>
   </table>
 </div>
@@ -141,8 +139,9 @@
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
 function updateUI() {
- const list = document.getElementById("list");
+  const list = document.getElementById("list");
   list.innerHTML = "";
+
   let balance = 0;
   let income = 0;
   let expense = 0;
@@ -153,21 +152,15 @@ function updateUI() {
     tr.innerHTML = `
       <td>${t.text}</td>
       <td>${t.category}</td>
-      <td>$${t.amount}</td>
-      <td>
-        <button class="delete" onclick="removeTransaction(${index})">X</button>
-      </td>
+      <td>${t.amount}</td>
+      <td><button class="delete" onclick="removeTransaction(${index})">X</button></td>
     `;
 
     list.appendChild(tr);
 
     balance += t.amount;
-
-    if (t.amount > 0) {
-      income += t.amount;
-    } else {
-      expense += t.amount;
-    }
+    if (t.amount > 0) income += t.amount;
+    else expense += t.amount;
   });
 
   document.getElementById("balance").innerText = balance;
@@ -176,6 +169,7 @@ function updateUI() {
 
   localStorage.setItem("transactions", JSON.stringify(transactions));
 }
+
 function addTransaction() {
   const text = document.getElementById("text").value;
   const category = document.getElementById("category").value;
