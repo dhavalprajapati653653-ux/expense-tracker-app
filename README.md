@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Expense Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
@@ -49,18 +48,10 @@
       cursor: pointer;
     }
 
-    .income {
-      color: lightgreen;
-    }
+    .income { color: lightgreen; }
+    .expense { color: red; }
 
-    .expense {
-      color: red;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
+    ul { list-style: none; padding: 0; }
 
     li {
       background: #3a3a50;
@@ -104,8 +95,6 @@
   </div>
 
   <div class="card">
-    <h3>Add Transaction</h3>
-
     <input type="text" id="text" placeholder="Enter description">
 
     <select id="category">
@@ -115,7 +104,7 @@
       <option>Other</option>
     </select>
 
-    <input type="number" id="amount" placeholder="Enter amount (+ income / - expense)">
+    <input type="number" id="amount" placeholder="Enter amount">
 
     <button onclick="addTransaction()">Add Transaction</button>
   </div>
@@ -148,7 +137,6 @@ function updateUI() {
     list.appendChild(li);
 
     balance += t.amount;
-
     if (t.amount > 0) income += t.amount;
     else expense += t.amount;
   });
