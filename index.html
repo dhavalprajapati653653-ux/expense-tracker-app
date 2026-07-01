@@ -141,34 +141,32 @@
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
 function updateUI() {
-  transactions.forEach((t, index) => {
-  const li = document.createElement("li");
-
-  li.innerHTML = `
-    ${t.text} (${t.category})
-    <span>${t.amount}</span>
-    <button class="delete" onclick="removeTransaction(${index})">X</button>
-  `;
-
-  list.appendChild(li);
-
-  let balance = 0, income = 0, expense = 0;
+ 
+  let balance = 0;
+  let income = 0;
+  let expense = 0;
 
   transactions.forEach((t, index) => {
+    const tr = document.createElement("tr");
 
-
-    li.innerHTML = `
-      ${t.text} (${t.category}) 
-      <span>${t.amount}</span>
-      <button class="delete" onclick="removeTransaction(${index})">X</button>
+    tr.innerHTML = `
+      <td>${t.text}</td>
+      <td>${t.category}</td>
+      <td>$${t.amount}</td>
+      <td>
+        <button class="delete" onclick="removeTransaction(${index})">X</button>
+      </td>
     `;
 
-    list.appendChild(li);
+    list.appendChild(tr);
 
     balance += t.amount;
 
-    if (t.amount > 0) income += t.amount;
-    else expense += t.amount;
+    if (t.amount > 0) {
+      income += t.amount;
+    } else {
+      expense += t.amount;
+    }
   });
 
   document.getElementById("balance").innerText = balance;
@@ -177,7 +175,6 @@ function updateUI() {
 
   localStorage.setItem("transactions", JSON.stringify(transactions));
 }
-
 function addTransaction() {
   const text = document.getElementById("text").value;
   const category = document.getElementById("category").value;
