@@ -118,7 +118,7 @@
   <canvas id="chart"></canvas>
 </div>
 
-<<div class="card">
+<div class="card">
   <h3>📋 Transaction History</h3>
 
   <table style="width:100%; color:white; text-align:left;">
@@ -141,21 +141,21 @@
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
 function updateUI() {
-  const tr = document.createElement("tr");
+  transactions.forEach((t, index) => {
+  const li = document.createElement("li");
 
-tr.innerHTML = `
-  <td>${t.text}</td>
-  <td>${t.category}</td>
-  <td>${t.amount}</td>
-  <td><button class="delete" onclick="removeTransaction(${index})">X</button></td>
-`;
+  li.innerHTML = `
+    ${t.text} (${t.category})
+    <span>${t.amount}</span>
+    <button class="delete" onclick="removeTransaction(${index})">X</button>
+  `;
 
-list.appendChild(tr);
+  list.appendChild(li);
 
   let balance = 0, income = 0, expense = 0;
 
   transactions.forEach((t, index) => {
-    const li = document.createElement("li");
+
 
     li.innerHTML = `
       ${t.text} (${t.category}) 
