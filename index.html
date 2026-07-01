@@ -141,7 +141,8 @@
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
 function updateUI() {
- 
+ const list = document.getElementById("list");
+  list.innerHTML = "";
   let balance = 0;
   let income = 0;
   let expense = 0;
